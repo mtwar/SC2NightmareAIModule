@@ -28,6 +28,7 @@ trigger libDE1190BD_gt_Ghost;
 trigger libDE1190BD_gt_Banshee;
 trigger libDE1190BD_gt_Wraith;
 trigger libDE1190BD_gt_Raven;
+trigger libDE1190BD_gt_ScienceVessel;
 trigger libDE1190BD_gt_Stalker;
 trigger libDE1190BD_gt_HighTemplar;
 trigger libDE1190BD_gt_Ascendent;

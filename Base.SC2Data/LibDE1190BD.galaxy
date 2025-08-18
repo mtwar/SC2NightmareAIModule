@@ -269,6 +269,7 @@ bool libDE1190BD_gt_RunTerranAI_Func (bool testConds, bool runActions) {
     TriggerExecute(libDE1190BD_gt_Ghost, true, false);
     TriggerExecute(libDE1190BD_gt_Reaper, true, false);
     TriggerExecute(libDE1190BD_gt_Raven, true, false);
+    TriggerExecute(libDE1190BD_gt_ScienceVessel, true, false);
     TriggerExecute(libDE1190BD_gt_Banshee, true, false);
     TriggerExecute(libDE1190BD_gt_Wraith, true, false);
     TriggerExecute(libDE1190BD_gt_LowerThanBrutal, true, false);
@@ -755,6 +756,46 @@ void libDE1190BD_gt_Raven_Init () {
 }
 
 //--------------------------------------------------------------------------------------------------
+// Trigger: Science Vessel
+//--------------------------------------------------------------------------------------------------
+bool libDE1190BD_gt_ScienceVessel_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    unit lv_localUnit;
+
+    // Automatic Variable Declarations
+    unitgroup autoA8CDC4CA_g;
+    int autoA8CDC4CA_u;
+    unit autoA8CDC4CA_var;
+
+    // Variable Initialization
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    while (true) {
+        autoA8CDC4CA_g = UnitGroup("ScienceVessel", c_playerAny, RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0);
+        autoA8CDC4CA_u = UnitGroupCount(autoA8CDC4CA_g, c_unitCountAll);
+        for (;; autoA8CDC4CA_u -= 1) {
+            autoA8CDC4CA_var = UnitGroupUnitFromEnd(autoA8CDC4CA_g, autoA8CDC4CA_u);
+            if (autoA8CDC4CA_var == null) { break; }
+            if ((UnitGetOwner(autoA8CDC4CA_var) != 1) && (UnitGroupCount(UnitGroupAlliance(UnitGetOwner(autoA8CDC4CA_var), c_unitAllianceEnemy, RegionCircle(UnitGetPosition(autoA8CDC4CA_var), 8.0), UnitFilter((1 << c_targetFilterBiological), 0, (1 << c_targetFilterStructure) | (1 << c_targetFilterMissile), (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0), c_unitCountAlive) > 3)) {
+                libDE1190BD_gf_SingleTarget(autoA8CDC4CA_var, AbilityCommand("Irradiate", 0), c_unitPropLife, 45, 8);
+            }
+
+        }
+        Wait(2.0, c_timeGame);
+    }
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void libDE1190BD_gt_ScienceVessel_Init () {
+    libDE1190BD_gt_ScienceVessel = TriggerCreate("libDE1190BD_gt_ScienceVessel_Func");
+}
+
+//--------------------------------------------------------------------------------------------------
 // Trigger: Stalker
 //--------------------------------------------------------------------------------------------------
 bool libDE1190BD_gt_Stalker_Func (bool testConds, bool runActions) {
@@ -931,6 +972,7 @@ void libDE1190BD_InitTriggers () {
     libDE1190BD_gt_Banshee_Init();
     libDE1190BD_gt_Wraith_Init();
     libDE1190BD_gt_Raven_Init();
+    libDE1190BD_gt_ScienceVessel_Init();
     libDE1190BD_gt_Stalker_Init();
     libDE1190BD_gt_HighTemplar_Init();
     libDE1190BD_gt_Ascendent_Init();
