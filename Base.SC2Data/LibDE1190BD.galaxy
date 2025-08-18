@@ -802,7 +802,7 @@ bool libDE1190BD_gt_ScienceVessel_Func (bool testConds, bool runActions) {
             autoA8CDC4CA_var = UnitGroupUnitFromEnd(autoA8CDC4CA_g, autoA8CDC4CA_u);
             if (autoA8CDC4CA_var == null) { break; }
             if ((UnitGetOwner(autoA8CDC4CA_var) != 1) && (UnitGroupCount(UnitGroupAlliance(UnitGetOwner(autoA8CDC4CA_var), c_unitAllianceEnemy, RegionCircle(UnitGetPosition(autoA8CDC4CA_var), 8.0), UnitFilter((1 << c_targetFilterBiological), 0, (1 << c_targetFilterStructure) | (1 << c_targetFilterMissile), (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0), c_unitCountAlive) > 3)) {
-                libDE1190BD_gf_SingleTarget(autoA8CDC4CA_var, AbilityCommand("Irradiate", 0), c_unitPropLife, 30, 8);
+                libDE1190BD_gf_SingleTargetAoEBio(autoA8CDC4CA_var, AbilityCommand("Irradiate", 0), c_unitPropLife, 30, 8);
             }
 
         }
