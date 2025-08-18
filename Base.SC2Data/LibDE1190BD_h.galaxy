@@ -8,6 +8,7 @@ void libDE1190BD_gf_SendFlexibleAttackWave (string lp_unitType, int lp_seconds, 
 void libDE1190BD_gf_SendFlexibleAttackWaveNoWait (string lp_unitType, int lp_seconds, int lp_maxAdd, int lp_player);
 void libDE1190BD_gf_MakeBullies (int lp_amount, string lp_unit, region lp_region, int lp_player, int lp_rebuildCount);
 void libDE1190BD_gf_TaldarimSkins (int lp_player);
+void libDE1190BD_gf_SingleTargetAoEBio (unit lp_unit, abilcmd lp_ability, int lp_vitality, int lp_amount, int lp_range);
 void libDE1190BD_gf_SingleTarget (unit lp_unit, abilcmd lp_ability, int lp_vitality, int lp_amount, int lp_range);
 void libDE1190BD_gf_PointAoE (unit lp_unit, abilcmd lp_ability, int lp_amount, int lp_range);
 void libDE1190BD_gf_PointAoEGroundOnly (unit lp_unit, abilcmd lp_ability, int lp_amount, int lp_range);

@@ -88,6 +88,27 @@ void libDE1190BD_gf_TaldarimSkins (int lp_player) {
     libNtve_gf_PlayerApplySkinReplacingExistingUnit(lp_player, "ZealotTaldarim", true);
 }
 
+void libDE1190BD_gf_SingleTargetAoEBio (unit lp_unit, abilcmd lp_ability, int lp_vitality, int lp_amount, int lp_range) {
+    // Automatic Variable Declarations
+    unitgroup auto78C610D4_g;
+    int auto78C610D4_u;
+    unit auto78C610D4_var;
+
+    // Implementation
+    auto78C610D4_g = UnitGroupAlliance(UnitGetOwner(lp_unit), c_unitAllianceEnemy, RegionCircle(UnitGetPosition(lp_unit), lp_range), UnitFilter((1 << c_targetFilterBiological), 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0);
+    auto78C610D4_u = UnitGroupCount(auto78C610D4_g, c_unitCountAll);
+    for (;; auto78C610D4_u -= 1) {
+        auto78C610D4_var = UnitGroupUnitFromEnd(auto78C610D4_g, auto78C610D4_u);
+        if (auto78C610D4_var == null) { break; }
+        if ((UnitGetPropertyFixed(auto78C610D4_var, lp_vitality, c_unitPropCurrent) >= lp_amount)) {
+            UnitIssueOrder(lp_unit, OrderTargetingUnit(lp_ability, auto78C610D4_var), c_orderQueueAddToFront);
+            AISetUnitScriptControlled(lp_unit, false);
+            break;
+        }
+
+    }
+}
+
 void libDE1190BD_gf_SingleTarget (unit lp_unit, abilcmd lp_ability, int lp_vitality, int lp_amount, int lp_range) {
     // Automatic Variable Declarations
     unitgroup auto26CE0903_g;
@@ -781,11 +802,11 @@ bool libDE1190BD_gt_ScienceVessel_Func (bool testConds, bool runActions) {
             autoA8CDC4CA_var = UnitGroupUnitFromEnd(autoA8CDC4CA_g, autoA8CDC4CA_u);
             if (autoA8CDC4CA_var == null) { break; }
             if ((UnitGetOwner(autoA8CDC4CA_var) != 1) && (UnitGroupCount(UnitGroupAlliance(UnitGetOwner(autoA8CDC4CA_var), c_unitAllianceEnemy, RegionCircle(UnitGetPosition(autoA8CDC4CA_var), 8.0), UnitFilter((1 << c_targetFilterBiological), 0, (1 << c_targetFilterStructure) | (1 << c_targetFilterMissile), (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0), c_unitCountAlive) > 3)) {
-                libDE1190BD_gf_SingleTarget(autoA8CDC4CA_var, AbilityCommand("Irradiate", 0), c_unitPropLife, 45, 8);
+                libDE1190BD_gf_SingleTarget(autoA8CDC4CA_var, AbilityCommand("Irradiate", 0), c_unitPropLife, 30, 8);
             }
 
         }
-        Wait(2.0, c_timeGame);
+        Wait(1.5, c_timeGame);
     }
     return true;
 }
